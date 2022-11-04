@@ -1,5 +1,4 @@
-# tdlog
-__Conception d’une bataille navale__
+# Conception d’une bataille navale
 
 * 1-	Implémentation de la super classe des armes /n
 * 2-	Implémentation des armes : 
