@@ -1,5 +1,7 @@
 # Conception d’une bataille navale
 
+Equipe projet : ABID Meryem - BAKKAS Fatima - BAKKA Soulaima - BAHICH Achraf - ARBAOUI Amine
+
 * Implémentation de la super classe des armes 
 * Implémentation des armes : 
    * 	Lance-missiles antisurface
