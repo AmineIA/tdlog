@@ -1,7 +1,56 @@
+#TP1
+#la super classe (classe mère) qui représente une arme de manière générale
+class weapon:
+    def __init__(self,munitions:int,range:int):
+        self.munitions=munitions
+        self.range=range
+
+#Lance-missiles antisurface
+class antisurface(weapon(30,40)):
+    def fire_at(self,x:int,y:int,z:int):
+        try:
+            try:
+                print(f"fire at {x},{y},{z}")
+                self.munitions = self.munitions - 1
+            except self.munitions == 0 :
+                print("NoAmmunationError")
+        except z != 0:
+            print("OutOFRangeError")
+            self.munitions = self.munitions - 1
+
+
+#Lance-missiles antiair
+class antiair(weapon(40,50)):
+    def fire_at(self,x:int,y:int,z:int):
+        try:
+            try:
+                print(f"fire at {x},{y},{z}")
+                self.munitions = self.munitions - 1
+            except self.munitions == 0 :
+                print("NoAmmunationError")
+        except z <=0 :
+            print("OutOFRangeError")
+            self.munitions = self.munitions - 1
+
+#Lance-torpilles
+class torpilles(weapon(20,15)):
+    def fire_at(self,x:int,y:int,z:int):
+        try:
+            try:
+                print(f"fire at {x},{y},{z}")
+                self.munitions = self.munitions - 1
+            except self.munitions == 0 :
+                print("NoAmmunationError")
+        except z >0 :
+            print("OutOFRangeError")
+            self.munitions = self.munitions - 1
+
+
+
 #TP2
 #la super classe (classe mère) qui représente un vaisseau de manière générale
 class vessel:
-    def __init__(self,coordinates,max_hits,weapon):
+    def __init__(self,coordinates:tuple,max_hits:int,weapon:weapon):
         self.coordinates=coordinates
         self.max_hits=max_hits
         self.weapon=weapon
@@ -21,7 +70,8 @@ class Cruiser(vessel({},6,antiair)):
                 print(f"vessel moved to {x},{y},{z}")
             except z != 0:
                 print("MoveError")
-    def fire_at(self):
+
+    def fire_at(self,x:int,y:int,z:int):
         if self.max_hits ==0:
             print("DestroyedError")
         else:
@@ -30,6 +80,7 @@ class Cruiser(vessel({},6,antiair)):
                 self.munitions = self.munitions - 1
             else:
                 antiair.fire_at(x,y,z)
+
 
 class Submarine(vessel({},2,torpilles)):
     def go_to(self,x,y,z):
@@ -40,7 +91,8 @@ class Submarine(vessel({},2,torpilles)):
                 print(f"vessel moved to {x},{y},{z}")
             except z != 0 and z != -1:
                 print("MoveError")
-    def fire_at(self):
+
+    def fire_at(self,x:int,y:int,z:int):
         if self.max_hits == 0:
             print("DestroyedError")
         else:
@@ -49,6 +101,8 @@ class Submarine(vessel({},2,torpilles)):
                 self.munitions = self.munitions - 1
             else:
                 torpilles.fire_at(x, y, z)
+
+
 
 class Fregate(vessel({},5,antisurface)):
     def go_to(self,x,y,z):
@@ -59,7 +113,8 @@ class Fregate(vessel({},5,antisurface)):
                 print(f"vessel moved to {x},{y},{z}")
             except z != 0:
                 print("MoveError")
-    def fire_at(self):
+
+    def fire_at(self,x:int,y:int,z:int):
         if self.max_hits == 0:
             print("DestroyedError")
         else:
@@ -68,6 +123,7 @@ class Fregate(vessel({},5,antisurface)):
                 self.munitions = self.munitions - 1
             else:
                 antisurface.fire_at(x,y,z)
+
 
 class Destroyer(vessel({},4,torpilles)):
     def go_to(self,x,y,z):
@@ -78,7 +134,8 @@ class Destroyer(vessel({},4,torpilles)):
                 print(f"vessel moved to {x},{y},{z}")
             except z != 0:
                 print("MoveError")
-    def fire_at(self):
+
+    def fire_at(self,x:int,y:int,z:int):
         if self.max_hits == 0:
             print("DestroyedError")
         else:
@@ -87,6 +144,7 @@ class Destroyer(vessel({},4,torpilles)):
                 self.munitions = self.munitions - 1
             else:
                 torpilles.fire_at(x,y,z)
+
 
 class Aircraft(vessel({},1,antisurface)):
     def go_to(self,x,y,z):
@@ -97,7 +155,8 @@ class Aircraft(vessel({},1,antisurface)):
                 print(f"vessel moved to {x},{y},{z}")
             except z != 1:
                 print("MoveError")
-    def fire_at(self):
+
+    def fire_at(self,x:int,y:int,z:int):
         if self.max_hits == 0:
             print("DestroyedError")
         else:
@@ -110,33 +169,42 @@ class Aircraft(vessel({},1,antisurface)):
 
 #Le champ de la bataille
 class espace:
-    def __init__(self,X,Y,Z):
+    def __init__(self,X:float,Y:float,Z:int):
         self.X=X
         self.Y=Y
         self.Z=Z
         self.vessel=[]
 
-    def add_vessel(self,v:vessel):
-        try :
-            if len(self.vessel)==0:
-                self.vessel.append(v)    
-            else:
-                sommehits=self.vessel[0].max_hits
-                for i in self.vessel:
-                    if (x, y, z) == i.get_coordinates:
-                        print("PositionError")
+    def add_vessel(self,v:vessel,x,y,z):
+        if len(self.vessel)==0:
+            self.vessel.append(v)
+        else:
+            sommmehits=self.vessel[0].max_hits
+            for i in self.vessel:
+                if (x, y, z) == i.get_coordinates:
+                    print("PositionError")
+                else:
+                    sommmehits += i.max_hits
+                    if sommmehits <= 22:
+                        self.vessel.append(v)
                     else:
-                        sommehits += i.max_hits
-                        if sommehits <= 22:
-                            self.vessel.append(vessel)
-                        else:
-                            print("HitsError")                                  
-         except type(vessel) not in [Aircraft,Destroyer,Fregate,Submarine,Cruiser]: 
-            print("This vessel is not available")
-            
-        
+                        print("HitsError")
+
+
+
+
     def receive(self,x,y,z):
-        if (x,y,z)==(self.X,self.Y,self.Z) :
-            return True
-        else :
-            return False
+        for i in self.vessel:
+            try :
+                if i.get_coordinates()[0] == x and i.get_coordinates()[1] == y and i.get_coordinates()[2] == z:
+                    return True
+                else:
+                    return False
+            except i.get_coordinates() is None:
+                print("PositionError")
+
+
+
+
+
+
