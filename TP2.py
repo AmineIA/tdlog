@@ -7,47 +7,105 @@ class vessel:
         self.weapon=weapon
 
     def get_coordinates(self):
-        pass
+        if len(self.coordinates)==3:
+            return self.coordinates
+        else:
+            return None
 
 class Cruiser(vessel({},6,antiair)):
     def go_to(self,x,y,z):
-        if z!=0:
-            print("MoveError")
+        if self.max_hits ==0:
+            print("DestroyedError")
+        else:
+            try:
+                print(f"vessel moved to {x},{y},{z}")
+            except z != 0:
+                print("MoveError")
     def fire_at(self):
         if self.max_hits ==0:
             print("DestroyedError")
+        else:
+            if range.antiair() < (x ** 2 + y ** 2 + z ** 2) ** 0.5:
+                print("OutOfRangeError")
+                self.munitions = self.munitions - 1
+            else:
+                antiair.fire_at(x,y,z)
 
 class Submarine(vessel({},2,torpilles)):
     def go_to(self,x,y,z):
-        if z!=0 and z!=-1:
-            print("MoveError")
+        if self.max_hits ==0:
+            print("DestroyedError")
+        else:
+            try:
+                print(f"vessel moved to {x},{y},{z}")
+            except z != 0 and z != -1:
+                print("MoveError")
     def fire_at(self):
         if self.max_hits == 0:
             print("DestroyedError")
+        else:
+            if range.antiair() < (x ** 2 + y ** 2 + z ** 2) ** 0.5:
+                print("OutOfRangeError")
+                self.munitions = self.munitions - 1
+            else:
+                torpilles.fire_at(x, y, z)
 
 class Fregate(vessel({},5,antisurface)):
     def go_to(self,x,y,z):
-        if z != 0:
-            print("MoveError")
+        if self.max_hits == 0:
+            print("DestroyedError")
+        else:
+            try:
+                print(f"vessel moved to {x},{y},{z}")
+            except z != 0:
+                print("MoveError")
     def fire_at(self):
         if self.max_hits == 0:
             print("DestroyedError")
+        else:
+            if range.antiair() < (x ** 2 + y ** 2 + z ** 2) ** 0.5:
+                print("OutOfRangeError")
+                self.munitions = self.munitions - 1
+            else:
+                antisurface.fire_at(x,y,z)
 
 class Destroyer(vessel({},4,torpilles)):
     def go_to(self,x,y,z):
-        if z != 0:
-            print("MoveError")
+        if self.max_hits == 0:
+            print("DestroyedError")
+        else:
+            try:
+                print(f"vessel moved to {x},{y},{z}")
+            except z != 0:
+                print("MoveError")
     def fire_at(self):
         if self.max_hits == 0:
             print("DestroyedError")
+        else:
+            if range.antiair() < (x ** 2 + y ** 2 + z ** 2) ** 0.5:
+                print("OutOfRangeError")
+                self.munitions = self.munitions - 1
+            else:
+                torpilles.fire_at(x,y,z)
 
 class Aircraft(vessel({},1,antisurface)):
     def go_to(self,x,y,z):
-        if z != 1:
-            print("MoveError")
+        if self.max_hits == 0:
+            print("DestroyedError")
+        else:
+            try:
+                print(f"vessel moved to {x},{y},{z}")
+            except z != 1:
+                print("MoveError")
     def fire_at(self):
         if self.max_hits == 0:
             print("DestroyedError")
+        else:
+            if range.antiair() < (x ** 2 + y ** 2 + z ** 2) ** 0.5:
+                print("OutOfRangeError")
+                self.munitions = self.munitions - 1
+            else:
+                antisurface.fire_at(x,y,z)
 
 
 #Le champ de la bataille
