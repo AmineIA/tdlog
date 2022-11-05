@@ -63,7 +63,7 @@ class espace:
             if len(self.vessel)==0:
                 self.vessel.append(v)    
             else:
-                sommehits=v.max_hits
+                sommehits=self.vessel[0].max_hits
                 for i in self.vessel:
                     if (x, y, z) == i.get_coordinates:
                         print("PositionError")
