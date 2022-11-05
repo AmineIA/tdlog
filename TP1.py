@@ -22,16 +22,24 @@ class antisurface(weapon(30,40)):
 #Lance-missiles antiair
 class antiair(weapon(40,50)):
     def fire_at(self,x,y,z):
-        if self.munitions == 0:
-            print("NoAmmunitionError")
-        if z<=0:
-            print("OutOfRangeError")
-            self.munitions=self.munitions-1
+        try:
+            try:
+                print(f"fire at {x},{y},{z}")
+                self.munitions = self.munitions - 1
+            except self.munitions == 0 :
+                print("NoAmmunationError")
+        except z <=0 :
+            print("OutOFRangeError")
+            self.munitions = self.munitions - 1
 #Lance-torpilles
 class torpilles(weapon(20,15)):
     def fire_at(self,x,y,z):
-        if self.munitions == 0:
-            print("NoAmmunitionError")
-        if z>0:
-            print("OutOfRangeError")
-            self.munitions=self.munitions-1
+        try:
+            try:
+                print(f"fire at {x},{y},{z}")
+                self.munitions = self.munitions - 1
+            except self.munitions == 0 :
+                print("NoAmmunationError")
+        except z >0 :
+            print("OutOFRangeError")
+            self.munitions = self.munitions - 1
