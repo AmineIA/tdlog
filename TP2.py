@@ -58,12 +58,25 @@ class espace:
         self.Z=Z
         self.vessel=[]
 
-    def add_vessel(self):
-        vessel=input("Add a vessel")
-        if type(vessel) in [Aircraft,Destroyer,Fregate,Submarine,Cruiser]:
-            self.vessel.append(vessel)
-        else:
+    def add_vessel(self,v:vessel):
+        try :
+            if len(self.vessel)==0:
+                self.vessel.append(v)    
+            else:
+                sommehits=v.max_hits
+                for i in self.vessel:
+                    if (x, y, z) == i.get_coordinates:
+                        print("PositionError")
+                    else:
+                        sommehits += i.max_hits
+                        if sommehits <= 22:
+                            self.vessel.append(vessel)
+                        else:
+                            print("HitsError")                                  
+         except type(vessel) not in [Aircraft,Destroyer,Fregate,Submarine,Cruiser]: 
             print("This vessel is not available")
+            
+        
     def receive(self,x,y,z):
         if (x,y,z)==(self.X,self.Y,self.Z) :
             return True
