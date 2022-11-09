@@ -43,3 +43,8 @@ class torpilles(weapon(20,15)):
         except z >0 :
             print("OutOFRangeError")
             self.munitions = self.munitions - 1
+
+class weapon2:
+    def fire(self):
+        pass
+
